@@ -1,0 +1,2010 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SynthNet Live Dashboard | Danybit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+  .particles {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .particle {
+    position: absolute;
+    background: var(--secondary);
+    border-radius: 50%;
+    pointer-events: none;
+    opacity: 0.5;
+    filter: blur(1px);
+    animation: float linear infinite;
+  }
+
+  @keyframes float {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.5;
+    }
+    90% {
+      opacity: 0.5;
+    }
+    100% {
+      transform: translateY(-100vh) translateX(20px);
+      opacity: 0;
+    }
+  }
+
+  .box {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid transparent;
+    border-radius: 8px;
+    background: linear-gradient(
+      90deg,
+      rgba(0, 255, 255, 0) 0%,
+      rgba(0, 255, 255, 0.3) 50%,
+      rgba(0, 255, 255, 0) 100%
+    );
+    animation: borderGlow 4s linear infinite;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  @keyframes borderGlow {
+    0% {
+      opacity: 0;
+      background-position: 0% 50%;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+      background-position: 100% 50%;
+    }
+  }
+
+    :root {
+      --primary: #00ffcc;
+      --secondary: #00ffff;
+      --accent: #ff00ff;
+      --dark: #0a0a1a;
+      --darker: #111122;
+      --alert: #ff5555;
+      --warning: #ffaa00;
+      --success: #55ff55;
+      --panel-bg: rgba(17, 17, 34, 0.9);
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body {
+      margin: 0;
+      background-color: var(--dark);
+      color: var(--primary);
+      font-family: 'Share Tech Mono', monospace;
+      min-height: 100vh;
+      overflow: auto;
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(0, 80, 80, 0.15) 0%, transparent 25%),
+        radial-gradient(circle at 90% 80%, rgba(0, 100, 100, 0.15) 0%, transparent 25%),
+        linear-gradient(to bottom, rgba(10, 10, 30, 0.9) 0%, rgba(5, 5, 15, 0.95) 100%);
+      background-attachment: fixed;
+    }
+
+    /* Particle effects */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .particle {
+      position: absolute;
+      background: var(--primary);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0.5;
+      filter: blur(1px);
+      animation: float linear infinite;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.5;
+      }
+      90% {
+        opacity: 0.5;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(20px);
+        opacity: 0;
+      }
+    }
+
+    /* Glow effects */
+    .glow {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      background: radial-gradient(circle at center, rgba(0, 255, 255, 0.1) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    /* Login Screen */
+    #login-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--dark);
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Orbitron', sans-serif;
+      overflow: auto;
+    }
+    
+    .login-container {
+      width: 90%;
+      max-width: 500px;
+      padding: 30px;
+      background: rgba(0, 30, 40, 0.9);
+      border: 1px solid var(--secondary);
+      box-shadow: 0 0 30px rgba(0, 255, 255, 0.3);
+      margin: 20px 0;
+      border-radius: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-container::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent 45%,
+        rgba(0, 255, 255, 0.05) 50%,
+        transparent 55%
+      );
+      animation: shine 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes shine {
+      0% {
+        transform: rotate(0deg) translate(-50%, -50%);
+      }
+      100% {
+        transform: rotate(360deg) translate(-50%, -50%);
+      }
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 30px;
+      color: var(--primary);
+      font-size: 1.5rem;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      position: relative;
+    }
+
+    .login-header::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 25%;
+      width: 50%;
+      height: 2px;
+      background: linear-gradient(to right, transparent, var(--secondary), transparent);
+    }
+    
+    .login-row {
+      margin: 15px 0;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .login-row::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(0, 255, 255, 0.3), transparent);
+    }
+    
+    .login-label {
+      color: var(--secondary);
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+    
+    .login-input {
+      width: 100%;
+      background: rgba(0, 20, 30, 0.7);
+      border: 1px solid var(--secondary);
+      color: var(--primary);
+      padding: 12px 15px;
+      font-family: 'Share Tech Mono', monospace;
+      outline: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: all 0.3s;
+    }
+    
+    .login-input:focus {
+      box-shadow: 0 0 10px var(--secondary);
+      background: rgba(0, 30, 40, 0.8);
+    }
+    
+    .login-button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(to right, #002233, #001122);
+      border: 1px solid var(--secondary);
+      color: var(--primary);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      cursor: pointer;
+      margin-top: 20px;
+      transition: all 0.3s;
+      border-radius: 4px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .login-button::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent 45%,
+        rgba(0, 255, 255, 0.1) 50%,
+        transparent 55%
+      );
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+    
+    .login-button:hover {
+      background: linear-gradient(to right, #003344, #002233);
+      box-shadow: 0 0 15px var(--secondary);
+    }
+
+    .login-button:hover::before {
+      animation: buttonShine 1.5s linear infinite;
+    }
+
+    @keyframes buttonShine {
+      0% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+      100% {
+        transform: translateX(100%) rotate(45deg);
+      }
+    }
+    
+    .login-progress {
+      width: 100%;
+      height: 4px;
+      background: rgba(0, 80, 80, 0.5);
+      margin-top: 10px;
+      overflow: hidden;
+      position: relative;
+      border-radius: 2px;
+    }
+    
+    .login-progress-bar {
+      position: absolute;
+      height: 100%;
+      width: 0%;
+      background: var(--primary);
+      animation: progress 1s linear forwards;
+      border-radius: 2px;
+    }
+    
+    .login-status {
+      color: var(--secondary);
+      font-size: 0.9rem;
+      margin-top: 15px;
+      min-height: 20px;
+      text-align: center;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+    }
+    
+    @keyframes progress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+    
+    /* Dashboard Grid */
+    #dashboard {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto;
+      gap: 15px;
+      padding: 15px;
+      min-height: 100vh;
+      opacity: 0;
+      transition: opacity 0.5s;
+      box-sizing: border-box;
+    }
+    
+    .box {
+      background-color: var(--panel-bg);
+      border: 1px solid var(--secondary);
+      padding: 20px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      border-radius: 8px;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
+      transition: all 0.3s ease;
+      min-height: 250px;
+    }
+
+    .box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(0, 255, 255, 0.05) 0%,
+        transparent 20%,
+        transparent 80%,
+        rgba(0, 255, 255, 0.05) 100%
+      );
+      pointer-events: none;
+      z-index: -1;
+    }
+    
+    .box:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 25px rgba(0, 255, 255, 0.2);
+    }
+    
+    .box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+      border-radius: 8px;
+    }
+    
+    h2 {
+      color: var(--secondary);
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-weight: normal;
+      font-size: 1.2rem;
+      font-family: 'Orbitron', sans-serif;
+      letter-spacing: 1px;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.3);
+      padding-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    
+    ul {
+      padding: 0;
+      list-style: none;
+      margin: 0;
+      flex-grow: 1;
+      overflow-y: auto;
+    }
+    
+    li {
+      margin: 8px 0;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    li::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    li:hover::after {
+      width: 100%;
+    }
+    
+    li::before {
+      content: "■";
+      margin-right: 10px;
+      font-size: 0.7rem;
+      text-shadow: 0 0 5px currentColor;
+    }
+    
+    .online { color: var(--success); }
+    .offline { color: var(--alert); }
+    .warn { color: var(--warning); }
+    
+    .status-indicator {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 10px;
+      box-shadow: 0 0 5px currentColor;
+    }
+    
+    .online .status-indicator { background-color: var(--success); }
+    .offline .status-indicator { background-color: var(--alert); }
+    .warn .status-indicator { background-color: var(--warning); }
+    
+    .data-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(0, 255, 255, 0.1);
+      align-items: center;
+      position: relative;
+    }
+
+    .data-row::after {
+      content: '';
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+
+    .data-row:hover::after {
+      width: 100%;
+    }
+    
+    .data-label {
+      color: var(--secondary);
+      font-size: 0.95rem;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+    }
+    
+    .data-value {
+      text-align: right;
+      font-size: 0.95rem;
+    }
+    
+    /* Info Tooltips */
+    .info-icon {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 1px solid var(--secondary);
+      text-align: center;
+      line-height: 16px;
+      font-size: 12px;
+      margin-left: 10px;
+      cursor: help;
+      position: relative;
+      transition: all 0.3s;
+      box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+
+    .info-icon:hover {
+      background: rgba(0, 255, 255, 0.1);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+    }
+    
+    .tooltip {
+      position: absolute;
+      background: rgba(0, 30, 40, 0.95);
+      border: 1px solid var(--secondary);
+      padding: 12px;
+      max-width: 300px;
+      z-index: 100;
+      font-size: 0.9rem;
+      display: none;
+      box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+      pointer-events: none;
+      top: 25px;
+      left: 0;
+      width: 300px;
+      border-radius: 6px;
+    }
+    
+    .info-icon:hover .tooltip,
+    .info-icon.active .tooltip {
+      display: block;
+    }
+    
+    /* Scrollbar styling */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 50, 50, 0.2);
+      border-radius: 4px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--secondary);
+      border-radius: 4px;
+      box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Responsive layout */
+    @media (max-width: 1200px) {
+      #dashboard {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      #dashboard {
+        grid-template-columns: 1fr;
+        padding: 10px;
+        gap: 10px;
+      }
+      
+      .box {
+        min-height: auto;
+        padding: 15px;
+      }
+      
+      .login-container {
+        width: 95%;
+        padding: 20px;
+      }
+      
+      .tooltip {
+        left: auto;
+        right: 0;
+        top: 25px;
+      }
+      
+      h2 {
+        font-size: 1.1rem;
+      }
+      
+      .data-label, .data-value {
+        font-size: 0.9rem;
+      }
+    }
+    
+    /* Connection Type */
+    .connection-type {
+      display: flex;
+      align-items: center;
+      margin: 12px 0;
+    }
+    
+    .connection-icon {
+      font-size: 1.5rem;
+      margin-right: 12px;
+      color: var(--secondary);
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+    
+    .connection-details {
+      flex-grow: 1;
+    }
+    
+    /* Network Stats */
+    .network-stats {
+      display: flex;
+      justify-content: space-around;
+      margin: 20px 0;
+    }
+    
+    .stat-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .stat-icon {
+      font-size: 1.8rem;
+      margin-bottom: 8px;
+      color: var(--secondary);
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+    
+    .stat-value {
+      font-weight: bold;
+      font-size: 1.2rem;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+    }
+    
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--secondary);
+      text-shadow: 0 0 3px rgba(0, 255, 255, 0.2);
+    }
+    
+    /* Security Status */
+    .security-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 10px 0;
+      padding: 10px;
+      background: rgba(0, 20, 30, 0.5);
+      border-left: 3px solid var(--secondary);
+      border-radius: 4px;
+      transition: all 0.3s;
+    }
+
+    .security-item:hover {
+      background: rgba(0, 30, 40, 0.7);
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);
+    }
+    
+    .security-icon {
+      font-size: 1.5rem;
+      margin-right: 12px;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+    }
+    
+    .security-details {
+      flex-grow: 1;
+    }
+    
+    .security-status {
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    
+    /* Error Message */
+    .error-message {
+      color: var(--alert);
+      font-style: italic;
+      font-size: 0.9rem;
+      text-shadow: 0 0 3px rgba(255, 85, 85, 0.3);
+    }
+    
+    /* Time Visualization */
+    #time-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Orbitron', sans-serif;
+      position: relative;
+    }
+    
+    .time-display {
+      font-size: 2.5rem;
+      letter-spacing: 3px;
+      margin-bottom: 12px;
+      text-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    }
+    
+    .date-display {
+      font-size: 1.3rem;
+      color: var(--secondary);
+      margin-bottom: 18px;
+      text-shadow: 0 0 5px rgba(0, 255, 255, 0.2);
+    }
+    
+    .timezone-display {
+      font-size: 1rem;
+      color: var(--secondary);
+      text-shadow: 0 0 3px rgba(0, 255, 255, 0.2);
+    }
+    
+    /* Geolocation */
+    .geo-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 15px;
+    }
+    
+    .geo-icon {
+      font-size: 2.2rem;
+      margin-bottom: 12px;
+      color: var(--secondary);
+      text-shadow: 0 0 8px rgba(0, 255, 255, 0.4);
+    }
+    
+    .geo-data {
+      text-align: center;
+      font-size: 1rem;
+    }
+    
+    /* Danybit Security */
+    #danybit-security {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      text-align: center;
+      position: relative;
+    }
+    
+    .synthnet-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      text-align: center;
+      line-height: 1.4;
+      background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+    }
+    
+    .danybit-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-top: 15px;
+      background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 0 15px rgba(0, 255, 204, 0.5);
+    }
+    
+    /* Speedtest Button */
+    .speedtest-btn {
+      background: linear-gradient(to right, #003366, #002244);
+      border: 1px solid var(--secondary);
+      color: var(--primary);
+      padding: 10px 15px;
+      font-family: 'Share Tech Mono', monospace;
+      cursor: pointer;
+      margin-top: 15px;
+      border-radius: 4px;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .speedtest-btn::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent 45%,
+        rgba(0, 255, 255, 0.1) 50%,
+        transparent 55%
+      );
+      transform: rotate(45deg);
+      pointer-events: none;
+    }
+    
+    .speedtest-btn:hover {
+      background: linear-gradient(to right, #004477, #003366);
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+    }
+
+    .speedtest-btn:hover::before {
+      animation: buttonShine 1.5s linear infinite;
+    }
+    
+    .speedtest-btn i {
+      font-size: 1.2rem;
+    }
+    
+    /* Network Graph */
+    .network-graph {
+      width: 100%;
+      height: 150px;
+      margin-top: 20px;
+      position: relative;
+      background: rgba(0, 20, 30, 0.3);
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    
+    .network-graph::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+    
+    .graph-line {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+    
+    .graph-in {
+      stroke: #55ff55;
+      stroke-width: 2;
+      fill: none;
+      filter: drop-shadow(0 0 3px rgba(85, 255, 85, 0.7));
+    }
+    
+    .graph-out {
+      stroke: var(--secondary);
+      stroke-width: 2;
+      fill: none;
+      filter: drop-shadow(0 0 3px rgba(0, 255, 255, 0.7));
+    }
+    
+    .graph-labels {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+      display: flex;
+      gap: 15px;
+    }
+    
+    .graph-label {
+      display: flex;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--secondary);
+      text-shadow: 0 0 3px rgba(0, 255, 255, 0.3);
+    }
+    
+    .graph-label-color {
+      width: 12px;
+      height: 3px;
+      margin-right: 6px;
+      box-shadow: 0 0 3px currentColor;
+    }
+    
+    /* Loading Spinner */
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(0, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: var(--secondary);
+      animation: spin 1s ease-in-out infinite;
+      box-shadow: 0 0 5px rgba(0, 255, 255, 0.5);
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Speedtest progress */
+    .speedtest-progress {
+      width: 100%;
+      height: 4px;
+      background: rgba(0, 80, 80, 0.3);
+      margin-top: 10px;
+      border-radius: 2px;
+      overflow: hidden;
+      display: none;
+    }
+
+    .speedtest-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--secondary);
+      transition: width 0.3s ease;
+    }
+	
+  </style>
+</head>
+<body>
+
+  <!-- Particle Effects -->
+  <div class="particles" id="particles"></div>
+  <div class="glow"></div>
+
+  <!-- Login Screen -->
+  <div id="login-screen">
+    <div class="login-container">
+      <div class="login-header">SynthNet Security Dashboard</div>
+      
+      <div class="login-row">
+        <div class="login-label">USERNAME:</div>
+        <input type="text" class="login-input" id="username-input" value="Danybit" readonly>
+      </div>
+      
+      <div class="login-row">
+        <div class="login-label">PASSWORD:</div>
+        <input type="password" class="login-input" id="password-input" value="s3cur3p@ss" readonly>
+      </div>
+      
+      <button class="login-button" id="login-btn">ACCESS SYSTEM</button>
+      
+      <div class="login-progress">
+        <div class="login-progress-bar"></div>
+      </div>
+      
+      <div class="login-status" id="login-status">Initializing security protocols...</div>
+    </div>
+  </div>
+
+  <!-- Dashboard -->
+  <!-- Dashboard -->
+<div id="dashboard">
+  <div class="box">
+    <h2>System Status 
+      <span class="info-icon" data-tooltip="system-tooltip">?
+        <span class="tooltip">Stato attuale del sistema e informazioni di rete</span>
+      </span>
+    </h2>
+    <div class="data-row">
+      <span class="data-label">Online:</span>
+      <span class="data-value" id="online-status">Checking...</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">Public IP:</span>
+      <span class="data-value" id="public-ip">-</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">Location:</span>
+      <span class="data-value" id="location">-</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">Secure:</span>
+      <span class="data-value" id="secure-context">-</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">Protocol:</span>
+      <span class="data-value" id="protocol">-</span>
+    </div>
+    
+    <button class="speedtest-btn" id="speedtest-btn">
+      <i class="fas fa-tachometer-alt"></i> Run Speedtest
+    </button>
+    
+    <div class="speedtest-progress" id="speedtest-progress">
+      <div class="speedtest-progress-bar" id="speedtest-progress-bar"></div>
+    </div>
+    
+    <div class="data-row" id="speedtest-result" style="display: none;">
+      <span class="data-label">Speed:</span>
+      <span class="data-value" id="speedtest-value">-</span>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Time & Geolocation 
+      <span class="info-icon" data-tooltip="time-tooltip">?
+        <span class="tooltip">Ora corrente e dati di geolocalizzazione</span>
+      </span>
+    </h2>
+    <div id="time-container">
+      <div class="time-display" id="current-time">--:--:--</div>
+      <div class="date-display" id="current-date">---, -- --- ----</div>
+      <div class="timezone-display" id="timezone">Loading...</div>
+      
+      <div class="geo-container">
+        <div class="geo-icon"><i class="fas fa-location-dot"></i></div>
+        <div class="geo-data">
+          <div id="latitude">-</div>
+          <div id="longitude">-</div>
+          <div id="geolocation-error" class="error-message"></div>
+        </div>
+      </div>
+      
+      <!-- Pulsante IP Lookup -->
+<div class="geo-action-container">
+  <button id="ip-lookup-button" class="geo-action-button" disabled>
+    <i class="fas fa-search-location"></i> IP Lookup
+  </button>
+</div>
+
+<script>
+  // Funzione per abilitare il pulsante e assegnare l'azione
+  function enableIpLookupButton() {
+    const lookupButton = document.getElementById('ip-lookup-button');
+    lookupButton.disabled = false;
+    lookupButton.onclick = () => {
+      window.open('https://www.iplocation.net/ip-lookup#google_vignette', '_blank');
+    };
+  }
+
+  // Simuliamo la chiamata dopo aver ottenuto IP o geolocalizzazione
+  // Per ora abilitiamo subito il pulsante (puoi mettere qui la tua logica)
+  enableIpLookupButton();
+</script>
+
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Security Status 
+      <span class="info-icon" data-tooltip="security-tooltip">?
+        <span class="tooltip">Stato di sicurezza del browser e connessione</span>
+      </span>
+    </h2>
+    
+    <div class="security-item">
+      <div class="security-icon"><i class="fas fa-lock"></i></div>
+      <div class="security-details">
+        <div>Secure Context</div>
+        <div class="security-status" id="secure-status">-</div>
+      </div>
+    </div>
+    
+    <div class="security-item">
+      <div class="security-icon"><i class="fas fa-globe"></i></div>
+      <div class="security-details">
+        <div>HTTPS</div>
+        <div class="security-status" id="https-status">-</div>
+      </div>
+    </div>
+    
+    <div class="security-item">
+      <div class="security-icon"><i class="fas fa-shield-halved"></i></div>
+      <div class="security-details">
+        <div>Security Headers</div>
+        <div class="security-status" id="headers-status">-</div>
+      </div>
+    </div>
+    
+    <div class="security-item">
+      <div class="security-icon"><i class="fas fa-cookie"></i></div>
+      <div class="security-details">
+        <div>Cookies</div>
+        <div class="security-status" id="cookies-status">-</div>
+      </div>
+    </div>
+    
+    <div class="network-graph">
+      <svg class="graph-line" viewBox="0 0 500 100" preserveAspectRatio="none">
+        <path class="graph-in" d=""></path>
+        <path class="graph-out" d=""></path>
+      </svg>
+      <div class="graph-labels">
+        <div class="graph-label">
+          <span class="graph-label-color" style="background: #55ff55;"></span>
+          <span>IN</span>
+        </div>
+        <div class="graph-label">
+          <span class="graph-label-color" style="background: var(--secondary);"></span>
+          <span>OUT</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="box">
+    <h2>Browser & System 
+      <span class="info-icon" data-tooltip="browser-tooltip">?
+        <span class="tooltip">Informazioni sul browser e sistema operativo</span>
+      </span>
+    </h2>
+    <div class="data-row">
+      <span class="data-label">Browser:</span>
+      <span class="data-value" id="browser-info">-</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">Version:</span>
+      <span class="data-value" id="browser-version">-</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">OS:</span>
+      <span class="data-value" id="os-info">-</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">Platform:</span>
+      <span class="data-value" id="platform">-</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">Resolution:</span>
+      <span class="data-value" id="resolution">-</span>
+    </div>
+    <div class="data-row">
+      <span class="data-label">Language:</span>
+      <span class="data-value" id="language">-</span>
+    </div>
+  </div>
+
+ <div class="box">
+  <h2>Connection & Device Details 
+    <span class="info-icon" data-tooltip="connection-tooltip">?
+      <span class="tooltip">Dettagli sulla connessione e dispositivo</span>
+    </span>
+  </h2>
+  <div class="data-row">
+    <span class="data-label">Connection Type:</span>
+    <span class="data-value" id="connection-type">Loading...</span>
+  </div>
+  <div class="data-row">
+    <span class="data-label">Effective Connection:</span>
+    <span class="data-value" id="effective-type">Loading...</span>
+  </div>
+  <div class="data-row">
+    <span class="data-label">Downlink (Mbps):</span>
+    <span class="data-value" id="downlink">Loading...</span>
+  </div>
+  <div class="data-row">
+    <span class="data-label">RTT (ms):</span>
+    <span class="data-value" id="rtt">Loading...</span>
+  </div>
+  <div class="data-row">
+    <span class="data-label">Save Data Mode:</span>
+    <span class="data-value" id="save-data">Loading...</span>
+  </div>
+
+  <div class="network-stats">
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-microchip"></i></div>
+      <div class="stat-value" id="cpu-cores">Loading...</div>
+      <div class="stat-label">CPU Cores</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon"><i class="fas fa-memory"></i></div>
+      <div class="stat-value" id="device-memory">Loading...</div>
+      <div class="stat-label">Memory (GB)</div>
+    </div>
+  </div>
+</div>
+
+<script>
+  function updateConnectionDetails() {
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection || null;
+
+    document.getElementById('connection-type').textContent = connection?.type || 'Non disponibile';
+    document.getElementById('effective-type').textContent = connection?.effectiveType || 'Non disponibile';
+    document.getElementById('downlink').textContent = connection?.downlink ? connection.downlink.toFixed(2) : 'Non disponibile';
+    document.getElementById('rtt').textContent = connection?.rtt || 'Non disponibile';
+    document.getElementById('save-data').textContent = connection?.saveData ? 'Sì' : 'No';
+
+    document.getElementById('cpu-cores').textContent = navigator.hardwareConcurrency || 'Non disponibile';
+    document.getElementById('device-memory').textContent = navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Non disponibile';
+  }
+
+  // Aggiorna subito e quando cambia la connessione
+  updateConnectionDetails();
+  if (navigator.connection) {
+    navigator.connection.addEventListener('change', updateConnectionDetails);
+  }
+</script>
+
+  <div class="box">
+    <h2>SynthNet Security</h2>
+    <div id="danybit-security">
+      <div class="synthnet-text">SynthNet Dashboard<br>created by</div>
+      <div class="danybit-logo">Danybit Security</div>
+      <div class="network-stats" style="margin-top: 20px;">
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-clock"></i></div>
+          <div class="stat-value" id="uptime">-</div>
+          <div class="stat-label">Uptime</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-icon"><i class="fas fa-database"></i></div>
+          <div class="stat-value" id="storage">-</div>
+          <div class="stat-label">Storage</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Variabile per memorizzare l'IP pubblico
+  let publicIp = '';
+  
+  // Funzione per aggiornare orario e data
+  function updateTime() {
+    const now = new Date();
+    document.getElementById('current-time').textContent = now.toLocaleTimeString();
+    document.getElementById('current-date').textContent = now.toLocaleDateString('it-IT', { 
+      weekday: 'long', 
+      day: 'numeric', 
+      month: 'long', 
+      year: 'numeric' 
+    });
+    document.getElementById('timezone').textContent = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  }
+  
+  // Aggiorna l'orario ogni secondo
+  setInterval(updateTime, 1000);
+  updateTime(); // Chiamata iniziale
+
+  async function getPublicIpAndLocation() {
+    try {
+      // Set online status
+      document.getElementById('online-status').textContent = 
+        navigator.onLine ? 'Online' : 'Offline';
+      document.getElementById('online-status').className = 
+        navigator.onLine ? 'online' : 'offline';
+      
+      // Get public IP
+      const ipResponse = await fetch('https://api.ipify.org?format=json');
+      const ipData = await ipResponse.json();
+      publicIp = ipData.ip || '';
+      document.getElementById('public-ip').textContent = publicIp || 'Unavailable';
+      
+// Get location based on IP
+const locationResponse = await fetch(`https://ipapi.co/${publicIp}/json/`);
+const locationData = await locationResponse.json();
+
+if (locationData.error) {
+  document.getElementById('location').textContent = 'Location unavailable';
+  document.getElementById('location').className = 'warn';
+} else {
+  const locationText = locationData.city ?
+    `${locationData.city}, ${locationData.region}, ${locationData.country_name}` :
+    'Location unavailable';
+
+  document.getElementById('location').textContent = locationText;
+
+ async function getPublicIpAndLocation() {
+  try {
+    // Set online status
+    document.getElementById('online-status').textContent = 
+      navigator.onLine ? 'Online' : 'Offline';
+    document.getElementById('online-status').className = 
+      navigator.onLine ? 'online' : 'offline';
+    
+    // Get public IP
+    const ipResponse = await fetch('https://api.ipify.org?format=json');
+    const ipData = await ipResponse.json();
+    document.getElementById('public-ip').textContent = ipData.ip || 'Unavailable';
+    
+    // Get location based on IP
+    const locationResponse = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
+    const locationData = await locationResponse.json();
+    
+    if (locationData.error) {
+      document.getElementById('location').textContent = 'Location unavailable';
+      document.getElementById('location').className = 'warn';
+    } else {
+      const locationText = locationData.city ? 
+        `${locationData.city}, ${locationData.region}, ${locationData.country_name}` : 
+        'Location unavailable';
+      document.getElementById('location').textContent = locationText;
+    }
+    
+    // Abilita il pulsante IP Lookup con link fisso
+    const lookupButton = document.getElementById('ip-lookup-button');
+    lookupButton.disabled = false;
+    lookupButton.onclick = () => {
+      window.open('https://www.iplocation.net/ip-lookup#google_vignette', '_blank');
+    };
+
+  } catch (error) {
+    document.getElementById('public-ip').textContent = 'Unavailable';
+    document.getElementById('public-ip').className = 'offline';
+    document.getElementById('location').textContent = 'Unavailable';
+    document.getElementById('location').className = 'offline';
+  }
+}
+
+function getGeolocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const lat = position.coords.latitude.toFixed(6);
+        const lon = position.coords.longitude.toFixed(6);
+
+        document.getElementById('latitude').textContent = `Lat: ${lat}`;
+        document.getElementById('longitude').textContent = `Lon: ${lon}`;
+
+        // Abilita il pulsante IP Lookup con link fisso anche qui
+        const lookupButton = document.getElementById('ip-lookup-button');
+        lookupButton.disabled = false;
+        lookupButton.onclick = () => {
+          window.open('https://www.iplocation.net/ip-lookup#google_vignette', '_blank');
+        };
+      },
+      error => {
+        document.getElementById('geolocation-error').textContent =
+          `Geolocation error: ${error.message}`;
+        getPublicIpAndLocation();
+      }
+    );
+  } else {
+    document.getElementById('geolocation-error').textContent =
+      'Geolocation not supported by this browser';
+    getPublicIpAndLocation();
+  }
+}
+
+// Inizializza la chiamata
+getGeolocation();
+
+  // Rileva informazioni sul browser
+  function detectBrowser() {
+    const userAgent = navigator.userAgent;
+    let browserName, browserVersion;
+    
+    if (userAgent.indexOf("Firefox") > -1) {
+      browserName = "Firefox";
+      browserVersion = userAgent.match(/Firefox\/([0-9.]+)/)[1];
+    } else if (userAgent.indexOf("Edg") > -1) {
+      browserName = "Edge";
+      browserVersion = userAgent.match(/Edg\/([0-9.]+)/)[1];
+    } else if (userAgent.indexOf("Chrome") > -1) {
+      browserName = "Chrome";
+      browserVersion = userAgent.match(/Chrome\/([0-9.]+)/)[1];
+    } else if (userAgent.indexOf("Safari") > -1) {
+      browserName = "Safari";
+      browserVersion = userAgent.match(/Version\/([0-9.]+)/)[1];
+    } else {
+      browserName = "Unknown";
+      browserVersion = "N/A";
+    }
+    
+    document.getElementById('browser-info').textContent = browserName;
+    document.getElementById('browser-version').textContent = browserVersion;
+    
+    // Rileva OS
+    let osName = "Unknown";
+    if (userAgent.indexOf("Windows") > -1) osName = "Windows";
+    if (userAgent.indexOf("Mac") > -1) osName = "MacOS";
+    if (userAgent.indexOf("Linux") > -1) osName = "Linux";
+    if (userAgent.indexOf("Android") > -1) osName = "Android";
+    if (userAgent.indexOf("iOS") > -1) osName = "iOS";
+    
+    document.getElementById('os-info').textContent = osName;
+    document.getElementById('platform').textContent = navigator.platform;
+    document.getElementById('resolution').textContent = `${screen.width}x${screen.height}`;
+    document.getElementById('language').textContent = navigator.language;
+  }
+  
+  // Rileva informazioni sulla connessione
+  function checkConnection() {
+    if (navigator.connection) {
+      const connection = navigator.connection;
+      document.getElementById('connection-type').textContent = connection.type || 'Unknown';
+      document.getElementById('effective-type').textContent = connection.effectiveType || 'Unknown';
+      document.getElementById('downlink').textContent = connection.downlink ? `${connection.downlink} Mbps` : 'Unknown';
+      document.getElementById('rtt').textContent = connection.rtt ? `${connection.rtt} ms` : 'Unknown';
+      document.getElementById('save-data').textContent = connection.saveData ? 'Enabled' : 'Disabled';
+    }
+    
+
+  
+  // Inizializza tutte le funzioni
+  checkSecurity();
+  detectBrowser();
+  checkConnection();
+</script>
+
+<style>
+  .geo-action-container {
+    margin-top: 15px;
+    text-align: center;
+  }
+  
+  .geo-action-button {
+    background-color: var(--secondary);
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.3s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .geo-action-button:hover {
+    background-color: var(--secondary-dark);
+  }
+  
+  .geo-action-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .geo-action-button i {
+    font-size: 1rem;
+  }
+</style>
+  <script>
+    // Create particles
+    function createParticles() {
+  const particlesContainer = document.getElementById('particles');
+  const particleCount = Math.floor(window.innerWidth / 2); // aumentato da /5 a /2
+
+  for (let i = 0; i < particleCount; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('particle');
+
+    // Più grande
+    const size = Math.random() * 6 + 2; // 2px - 8px
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+
+    // Più visibili: meno blur e opacità piena
+    particle.style.opacity = '0.7';
+    particle.style.filter = 'blur(0.5px)';
+
+    // Posizione random
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.top = `${Math.random() * 100}%`;
+
+    // Durata più lenta per essere visibile
+    const duration = Math.random() * 20 + 20; // 20s - 40s
+    particle.style.animationDuration = `${duration}s`;
+
+    // Colori vibranti
+    const hue = Math.floor(Math.random() * 60 + 180); // azzurro-verde
+    particle.style.backgroundColor = `hsla(${hue}, 100%, 60%, 0.8)`;
+
+    particlesContainer.appendChild(particle);
+  }
+}
+
+    // Login functionality
+    const loginScreen = document.getElementById('login-screen');
+    const loginBtn = document.getElementById('login-btn');
+    const loginStatus = document.getElementById('login-status');
+    const dashboard = document.getElementById('dashboard');
+    const usernameInput = document.getElementById('username-input');
+    const passwordInput = document.getElementById('password-input');
+    const speedtestBtn = document.getElementById('speedtest-btn');
+    const speedtestResult = document.getElementById('speedtest-result');
+    const speedtestValue = document.getElementById('speedtest-value');
+    const speedtestProgress = document.getElementById('speedtest-progress');
+    const speedtestProgressBar = document.getElementById('speedtest-progress-bar');
+    
+    // Auto-fill credentials
+    window.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      usernameInput.value = 'Danybit';
+      passwordInput.value = '********';
+      passwordInput.type = 'password';
+    });
+    
+    loginBtn.addEventListener('click', function() {
+      loginStatus.textContent = "Authenticating credentials...";
+      
+      setTimeout(() => {
+        loginStatus.textContent = "Establishing secure connection...";
+      }, 500);
+      
+      setTimeout(() => {
+        loginStatus.textContent = "Initializing dashboard...";
+      }, 1000);
+      
+      setTimeout(() => {
+        loginStatus.textContent = "Access granted!";
+        loginScreen.style.opacity = '0';
+        
+        setTimeout(() => {
+          loginScreen.style.display = 'none';
+          dashboard.style.opacity = '1';
+          initRealData();
+          initNetworkGraph();
+        }, 300);
+      }, 1500);
+    });
+    
+// Test di PING
+async function runPingTest() {
+  const url = 'https://speed.cloudflare.com/__down?bytes=1';
+  const results = [];
+
+  for (let i = 0; i < 3; i++) {
+    const start = performance.now();
+    try {
+      await fetch(url, { cache: 'no-store', mode: 'cors' });
+      const end = performance.now();
+      results.push(end - start);
+    } catch (e) {
+      results.push(1000); // fallback
+    }
+  }
+
+  const avg = results.reduce((a, b) => a + b, 0) / results.length;
+  return Math.round(avg);
+}
+
+// Download Test
+async function runDownloadTest() {
+  const testUrl = 'https://speed.cloudflare.com/__down?bytes=10000000'; // 10MB
+  const startTime = performance.now();
+  let downloadedBytes = 0;
+
+  try {
+    speedtestProgress.style.display = 'block';
+    speedtestProgressBar.style.width = '0%';
+
+    const response = await fetch(testUrl, {
+      method: 'GET',
+      cache: 'no-store',
+      mode: 'cors'
+    });
+
+    if (!response.ok || !response.body) throw new Error('Download failed');
+
+    const reader = response.body.getReader();
+    const contentLength = 10 * 1024 * 1024;
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      downloadedBytes += value.length;
+
+      const progress = (downloadedBytes / contentLength) * 100;
+      speedtestProgressBar.style.width = `${Math.min(progress, 100).toFixed(1)}%`;
+    }
+
+    const endTime = performance.now();
+    const seconds = (endTime - startTime) / 1000;
+    const speedMbps = ((downloadedBytes * 8) / (seconds * 1000 * 1000)).toFixed(2);
+    return speedMbps;
+  } catch (err) {
+    console.error('Download error:', err);
+    return null;
+  } finally {
+    speedtestProgress.style.display = 'none';
+  }
+}
+
+// Upload Test
+async function runUploadTest() {
+  const testUrl = 'https://httpbin.org/post'; // accetta POST
+  const blob = new Blob([new Uint8Array(5 * 1024 * 1024)]); // 5MB
+
+  const startTime = performance.now();
+  try {
+    await fetch(testUrl, {
+      method: 'POST',
+      body: blob,
+      mode: 'cors'
+    });
+    const endTime = performance.now();
+    const seconds = (endTime - startTime) / 1000;
+    const speedMbps = ((blob.size * 8) / (seconds * 1000 * 1000)).toFixed(2);
+    return speedMbps;
+  } catch (err) {
+    console.error('Upload error:', err);
+    return null;
+  }
+}
+
+// Listener del pulsante
+speedtestBtn.addEventListener('click', async function () {
+  speedtestBtn.innerHTML = '<span class="spinner"></span> Testing...';
+  speedtestBtn.disabled = true;
+  speedtestResult.style.display = 'none';
+  speedtestValue.innerHTML = 'Running...';
+
+  // Ping
+  const ping = await runPingTest();
+  speedtestValue.innerHTML = `Ping: ${ping} ms`;
+
+  // Download
+  const download = await runDownloadTest();
+  speedtestValue.innerHTML += `<br>Download: ${download ?? 'Failed'} Mbps`;
+
+  // Upload
+  const upload = await runUploadTest();
+  speedtestValue.innerHTML += `<br>Upload: ${upload ?? 'Failed'} Mbps`;
+
+  speedtestResult.style.display = 'flex';
+  speedtestBtn.innerHTML = '<i class="fas fa-tachometer-alt"></i> Run Speedtest';
+  speedtestBtn.disabled = false;
+});
+
+
+
+    // Network graph data
+    function initNetworkGraph() {
+      const graphIn = document.querySelector('.graph-in');
+      const graphOut = document.querySelector('.graph-out');
+      let inData = [];
+      let outData = [];
+      
+      // Generate initial data
+      for (let i = 0; i < 50; i++) {
+        inData.push(Math.random() * 80 + 20);
+        outData.push(Math.random() * 60 + 10);
+      }
+      
+      // Update graph
+      function updateGraph() {
+        // Shift data
+        inData.shift();
+        outData.shift();
+        
+        // Add new random data
+        inData.push(Math.random() * 80 + 20);
+        outData.push(Math.random() * 60 + 10);
+        
+        // Generate path strings
+        let inPath = 'M0,100 ';
+        let outPath = 'M0,100 ';
+        
+        inData.forEach((value, i) => {
+          inPath += `L${i * (500 / 49)},${100 - value} `;
+        });
+        
+        outData.forEach((value, i) => {
+          outPath += `L${i * (500 / 49)},${100 - value} `;
+        });
+        
+        // Update paths
+        graphIn.setAttribute('d', inPath);
+        graphOut.setAttribute('d', outPath);
+      }
+      
+      // Initial update
+      updateGraph();
+      
+      // Update every second
+      setInterval(updateGraph, 1000);
+    }
+    
+    // Initialize real data
+    function initRealData() {
+      // Set initial values
+      const startTime = Date.now();
+      
+      // Update time continuously
+      updateTime();
+      setInterval(updateTime, 1000);
+      
+      // Set uptime counter
+      setInterval(() => {
+        const uptimeSeconds = Math.floor((Date.now() - startTime) / 1000);
+        const hours = Math.floor(uptimeSeconds / 3600);
+        const minutes = Math.floor((uptimeSeconds % 3600) / 60);
+        const seconds = uptimeSeconds % 60;
+        document.getElementById('uptime').textContent = 
+          `${hours}h ${minutes}m ${seconds}s`;
+      }, 1000);
+      
+      // Get public IP and location
+      getPublicIpAndLocation();
+      
+      // Get browser and system info
+      getBrowserInfo();
+      
+      // Get connection info
+      getConnectionInfo();
+      
+      // Get geolocation
+      getGeolocation();
+      
+      // Get storage info
+      getStorageInfo();
+      
+      // Set security info
+      setSecurityInfo();
+    }
+    
+    // Update time function
+    function updateTime() {
+      const now = new Date();
+      
+      // Update time
+      document.getElementById('current-time').textContent = 
+        now.toLocaleTimeString();
+      
+      // Update date
+      document.getElementById('current-date').textContent = 
+        now.toLocaleDateString('it-IT', { 
+          weekday: 'long', 
+          day: 'numeric', 
+          month: 'long', 
+          year: 'numeric' 
+        });
+      
+      // Update timezone
+      document.getElementById('timezone').textContent = 
+        Intl.DateTimeFormat().resolvedOptions().timeZone;
+    }
+    
+    // Get public IP and location
+    async function getPublicIpAndLocation() {
+      try {
+        // Set online status
+        document.getElementById('online-status').textContent = 
+          navigator.onLine ? 'Online' : 'Offline';
+        document.getElementById('online-status').className = 
+          navigator.onLine ? 'online' : 'offline';
+        
+        // Get public IP
+        const ipResponse = await fetch('https://api.ipify.org?format=json');
+        const ipData = await ipResponse.json();
+        document.getElementById('public-ip').textContent = ipData.ip || 'Unavailable';
+        
+        // Get location based on IP
+        const locationResponse = await fetch(`https://ipapi.co/${ipData.ip}/json/`);
+        const locationData = await locationResponse.json();
+        
+        if (locationData.error) {
+          document.getElementById('location').textContent = 'Location unavailable';
+          document.getElementById('location').className = 'warn';
+        } else {
+          const locationText = locationData.city ? 
+            `${locationData.city}, ${locationData.region}, ${locationData.country_name}` : 
+            'Location unavailable';
+          
+          document.getElementById('location').textContent = locationText;
+        }
+      } catch (error) {
+        document.getElementById('public-ip').textContent = 'Unavailable';
+        document.getElementById('public-ip').className = 'offline';
+        document.getElementById('location').textContent = 'Unavailable';
+        document.getElementById('location').className = 'offline';
+      }
+    }
+    
+    // Get browser information
+    function getBrowserInfo() {
+      const userAgent = navigator.userAgent;
+      let browserName = 'Unknown';
+      let browserVersion = 'Unknown';
+      
+      // Detect browser
+      if (userAgent.includes("Firefox")) {
+        browserName = "Firefox";
+        browserVersion = userAgent.match(/Firefox\/(\d+\.\d+)/)?.[1] || 'Unknown';
+      } else if (userAgent.includes("Edg")) {
+        browserName = "Edge";
+        browserVersion = userAgent.match(/Edg\/(\d+\.\d+\.\d+\.\d+)/)?.[1] || 'Unknown';
+      } else if (userAgent.includes("Chrome")) {
+        browserName = "Chrome";
+        browserVersion = userAgent.match(/Chrome\/(\d+\.\d+\.\d+\.\d+)/)?.[1] || 'Unknown';
+      } else if (userAgent.includes("Safari")) {
+        browserName = "Safari";
+        browserVersion = userAgent.match(/Version\/(\d+\.\d+)/)?.[1] || 'Unknown';
+      }
+      
+      // Detect OS
+      let osName = 'Unknown';
+      if (userAgent.includes("Windows")) {
+        osName = "Windows";
+      } else if (userAgent.includes("Macintosh")) {
+        osName = "macOS";
+      } else if (userAgent.includes("Linux")) {
+        osName = "Linux";
+      } else if (userAgent.includes("Android")) {
+        osName = "Android";
+      } else if (userAgent.includes("iOS")) {
+        osName = "iOS";
+      }
+      
+      // Set browser info
+      document.getElementById('browser-info').textContent = browserName;
+      document.getElementById('browser-version').textContent = browserVersion;
+      document.getElementById('os-info').textContent = osName;
+      document.getElementById('platform').textContent = navigator.platform;
+      document.getElementById('resolution').textContent = `${window.screen.width}×${window.screen.height}`;
+      document.getElementById('language').textContent = navigator.language || 'Unknown';
+    }
+    
+    // Get connection information
+    function getConnectionInfo() {
+      if (navigator.connection) {
+        document.getElementById('connection-type').textContent = 
+          navigator.connection.type || 'Unknown';
+        
+        document.getElementById('effective-type').textContent = 
+          navigator.connection.effectiveType || 'Unknown';
+        
+        document.getElementById('downlink').textContent = 
+          navigator.connection.downlink ? `${navigator.connection.downlink} Mbps` : 'Unknown';
+        
+        document.getElementById('rtt').textContent = 
+          navigator.connection.rtt ? `${navigator.connection.rtt} ms` : 'Unknown';
+        
+        document.getElementById('save-data').textContent = 
+          navigator.connection.saveData ? 'Enabled' : 'Disabled';
+      } else {
+        document.getElementById('connection-type').textContent = 'Unavailable';
+        document.getElementById('effective-type').textContent = 'Unavailable';
+        document.getElementById('downlink').textContent = 'Unavailable';
+        document.getElementById('rtt').textContent = 'Unavailable';
+        document.getElementById('save-data').textContent = 'Unavailable';
+      }
+      
+      // Get hardware info
+      document.getElementById('cpu-cores').textContent = 
+        navigator.hardwareConcurrency || 'Unknown';
+      
+      document.getElementById('device-memory').textContent = 
+        navigator.deviceMemory ? `${navigator.deviceMemory} GB` : 'Unknown';
+    }
+    
+    // Get geolocation
+    function getGeolocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          position => {
+            document.getElementById('latitude').textContent = 
+              `Lat: ${position.coords.latitude.toFixed(6)}`;
+            document.getElementById('longitude').textContent = 
+              `Lon: ${position.coords.longitude.toFixed(6)}`;
+          },
+          error => {
+            document.getElementById('geolocation-error').textContent = 
+              `Geolocation error: ${error.message}`;
+          }
+        );
+      } else {
+        document.getElementById('geolocation-error').textContent = 
+          'Geolocation not supported by this browser';
+      }
+    }
+    
+    // Set security information
+    function setSecurityInfo() {
+      document.getElementById('secure-context').textContent = 
+        window.isSecureContext ? 'Yes' : 'No';
+      document.getElementById('secure-context').className = 
+        window.isSecureContext ? 'online' : 'offline';
+      
+      document.getElementById('protocol').textContent = 
+        window.location.protocol;
+      
+      document.getElementById('secure-status').textContent = 
+        window.isSecureContext ? 'Secure' : 'Not Secure';
+      document.getElementById('secure-status').className = 
+        window.isSecureContext ? 'online' : 'offline';
+      
+      document.getElementById('https-status').textContent = 
+        window.location.protocol === 'https:' ? 'Enabled' : 'Disabled';
+      document.getElementById('https-status').className = 
+        window.location.protocol === 'https:' ? 'online' : 'offline';
+      
+      // Check security headers
+      fetch(window.location.href, {method: 'HEAD'})
+        .then(response => {
+          const hasSecurityHeaders = 
+            response.headers.get('X-Frame-Options') ||
+            response.headers.get('X-Content-Type-Options') ||
+            response.headers.get('X-XSS-Protection');
+          
+          document.getElementById('headers-status').textContent = 
+            hasSecurityHeaders ? 'Enabled' : 'Disabled';
+          document.getElementById('headers-status').className = 
+            hasSecurityHeaders ? 'online' : 'warn';
+        })
+        .catch(() => {
+          document.getElementById('headers-status').textContent = 'Unknown';
+          document.getElementById('headers-status').className = 'warn';
+        });
+      
+      document.getElementById('cookies-status').textContent = 
+        navigator.cookieEnabled ? 'Enabled' : 'Disabled';
+      document.getElementById('cookies-status').className = 
+        navigator.cookieEnabled ? 'online' : 'offline';
+    }
+    
+    // Get storage info
+    async function getStorageInfo() {
+      if (navigator.storage && navigator.storage.estimate) {
+        try {
+          const estimate = await navigator.storage.estimate();
+          const quotaGB = estimate.quota ? (estimate.quota / (1024 * 1024 * 1024)).toFixed(2) : 'Unknown';
+          const usageGB = estimate.usage ? (estimate.usage / (1024 * 1024 * 1024)).toFixed(2) : 'Unknown';
+          
+          document.getElementById('storage').textContent = 
+            `${usageGB} / ${quotaGB} GB`;
+        } catch (error) {
+          document.getElementById('storage').textContent = 'Unavailable';
+        }
+      } else {
+        document.getElementById('storage').textContent = 'Unsupported';
+      }
+    }
+    
+    // Tooltip functionality for mobile
+    function initTooltips() {
+      const infoIcons = document.querySelectorAll('.info-icon');
+      
+      // Add click event for mobile
+      infoIcons.forEach(icon => {
+        icon.addEventListener('click', function(e) {
+          e.stopPropagation();
+          // Close other tooltips
+          document.querySelectorAll('.info-icon').forEach(i => {
+            if (i !== icon) i.classList.remove('active');
+          });
+          // Toggle this tooltip
+          icon.classList.toggle('active');
+        });
+      });
+      
+      // Close tooltips when clicking elsewhere
+      document.addEventListener('click', function(e) {
+        if (!e.target.closest('.info-icon')) {
+          document.querySelectorAll('.info-icon').forEach(icon => {
+            icon.classList.remove('active');
+          });
+        }
+      });
+    }
+    
+    // Initialize tooltips
+    initTooltips();
+    
+    // Auto-scroll to top on mobile when keyboard appears
+    window.addEventListener('resize', function() {
+      if (window.innerWidth < 768) {
+        window.scrollTo(0, 0);
+      }
+    });
+  </script>
+</body>
+</html>
