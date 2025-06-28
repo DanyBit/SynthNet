@@ -1,0 +1,164 @@
+
+SynthNet Dashboard – Documentazione del Progetto
+
+Cos’è SynthNet
+
+SynthNet è una dashboard interattiva in stile cyberpunk/hacker, progettata per mostrare dati tecnici reali sulla tua connessione, dispositivo e sistema operativo. 
+L'interfaccia è estetica e reattiva, ma non è solo bella da vedere: ogni dato che vedi è ottenuto in tempo reale, direttamente dal tuo browser e hardware.
+
+------------------------------------------------------------------------------------------
+
+
+Cosa puoi monitorare
+
+System Status
+
+* Online o Offline – Verifica istantanea della connessione
+* IP pubblico – Il tuo vero indirizzo IP (nessuna VPN finta)
+* Geolocalizzazione IP – Città, regione e paese rilevati in automatico
+* Protocollo – HTTP o HTTPS
+* Sicurezza – Controlla se la connessione è cifrata
+
+Time & Geolocation
+
+* Ora corrente – Aggiornata al secondo con effetto digitale
+* Data – Formattata nel tuo fuso orario
+* Coordinate GPS – Latitudine e longitudine (se consenti)
+* Fuso orario – Rilevato in automatico
+
+Security Status
+
+* Contesto sicuro – HTTPS e certificati
+* Cookie – Se sono attivi nel browser
+* CSP – Presenza della Content Security Policy
+
+Browser & Sistema
+
+* Browser – Nome e versione rilevati
+* Sistema operativo – Windows, macOS, Linux, Android, iOS
+* Risoluzione – Dimensione effettiva della finestra
+* Lingua – Impostazione della lingua del browser
+
+Connection & Device
+
+* Tipo di connessione – WiFi, 4G, Ethernet o altro
+* Velocità stimata – Mbps calcolati da test attivi
+* RTT – Tempo di risposta della rete
+* CPU – Numero di core disponibili
+* RAM – Memoria stimata del dispositivo
+
+Danybit Security
+
+* Logo animato – Effetto glitch neon
+* Uptime – Tempo di attività della dashboard
+* Storage – Spazio disponibile nel browser
+
+------------------------------------------------------------------------------------------
+
+
+Come funziona sotto il cofano
+
+SynthNet raccoglie e visualizza i dati tramite:
+
+* API del browser come navigator, screen, geolocation
+* API esterne come ipify per IP pubblico
+* Parsing dell’User Agent per browser e OS
+* Aggiornamenti in tempo reale per orologio, grafici e connessione
+
+------------------------------------------------------------------------------------------
+
+
+Tecnologie utilizzate
+
+Frontend
+
+* HTML5 e CSS3 con griglie, animazioni e layout responsive
+* Effetti visivi come glow, blur, glitch e neon
+* Font Orbitron e Share Tech Mono
+* JavaScript moderno (ES6+)
+
+Browser API
+
+* Geolocation API
+* Network Information API
+* HardwareConcurrency e DeviceMemory
+* Storage Estimate API
+* Performance.now per calcolo speed test
+* Secure Context Check
+
+------------------------------------------------------------------------------------------
+
+
+📡 Funzionalità extra
+
+Speed Test
+
+* Ping a Cloudflare
+* Download test da 10 MB
+* Upload simulato su httpbin.org
+* Calcolo Mbps con progress bar animata
+
+Network Graph
+
+* Grafico SVG animato
+* Mostra traffico rete input/output
+* Aggiornamento ogni secondo
+
+Tooltip System
+
+* Tooltip per ogni sezione
+* Compatibile con mouse e touch
+* Si nascondono cliccando fuori
+
+Particle System
+
+* Particelle animate sullo sfondo
+* Effetti ottici dinamici e adattivi
+* Ottimizzato per schermi ad alta risoluzione
+
+------------------------------------------------------------------------------------------
+
+
+🧱 Architettura e logica
+
+Flusso operativo
+
+* Avvio con login simulato
+* Transizione alla dashboard
+* Chiamata alle API per ottenere i dati
+* Aggiornamento continuo delle informazioni
+
+Funzioni principali
+
+* getPublicIpAndLocation per IP e geolocalizzazione
+* getBrowserInfo per sistema e browser
+* updateTime per l’orologio
+* initNetworkGraph per grafico rete
+* runSpeedTest per test connessione
+
+------------------------------------------------------------------------------------------
+
+✅ Punti di forza
+
+* Prestazioni fluide e reattive
+* Fallback e messaggi in caso di errore
+* Nessun dato finto: tutto è reale e live
+* Protezione HTTPS e gestione permessi
+* Interfaccia responsive su qualsiasi dispositivo
+
+------------------------------------------------------------------------------------------
+
+🔧 Miglioramenti futuri
+
+* Uso di Web Workers per i test di velocità
+* Implementazione Service Worker per modalità offline
+* Integrazione WebSocket per dati in tempo reale
+* Monitor CPU live tramite PerformanceObserver
+* Salvataggio dati in IndexedDB
+
+------------------------------------------------------------------------------------------
+
+🧩 Conclusione
+
+SynthNet Dashboard è una web app interattiva che fonde design futuristico, dati reali e performance moderne.
+Perfetta per demo, portfolio o ambientazioni tech, dimostra quanto si può fare con le API del browser e un po’ di creatività.
